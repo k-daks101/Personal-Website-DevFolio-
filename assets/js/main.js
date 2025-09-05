@@ -253,4 +253,19 @@
    */
   document.documentElement.setAttribute('data-theme', 'dark');
 
+  /**
+   * Dynamic copyright year range
+   * Uses footer's data-start-year (defaults to current year if missing)
+   */
+  window.addEventListener('load', function () {
+    const footer = document.querySelector('#footer');
+    const target = document.querySelector('#copyright-text');
+    if (!footer || !target) return;
+    const now = new Date().getFullYear();
+    const startAttr = footer.getAttribute('data-start-year');
+    const startYear = parseInt(startAttr || String(now), 10);
+    const yearText = startYear < now ? startYear + '–' + now : String(now);
+    target.innerHTML = '© ' + yearText + ' <strong class="px-1 sitename">Kwame Dako</strong>';
+  });
+
 })();
